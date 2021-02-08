@@ -11,13 +11,17 @@ import Foundation
 class Person {
     var name = "Tom"
     var age = 28
+    
+    func personPrint() {
+        print("personPrint")
+    }
 }
 
 class Student: Person {
     var score = 98
     
-    func printScore() {
-        print(score)
+    func studentPrint() {
+        print("studentPrint")
     }
 }
 
@@ -109,4 +113,28 @@ func printClassType(_ ptr: UnsafeMutablePointer<ClassMetadata>) {
 
 
 printClassType(unsafeBitCast(Student.self as Any.Type, to: UnsafeMutablePointer<ClassMetadata>.self))
+
+
+// 尝试方法替换的可行性，替换personPrint和studentPrint方法，失败了，直接报错 EXC_BAD_ACCESS (code=2, address=0x10001fd58)。
+// 查下来发现 &0x10001fd58,  method descriptor for ClassMetadata.Person.personPrint() -> () <+0> , ($s13ClassMetadata6PersonC11personPrintyyFTq)ClassMetadata.__TEXT.__const[\257vL\372
+// 代码在__TEXT段，只读的，所以在运行时的时候不可能修改了，所以Swfit还是很安全的。
+
+//var studentPtr = unsafeBitCast(Student.self as Any.Type, to: UnsafeMutablePointer<ClassMetadata>.self)
+//var personPtr = unsafeBitCast(Person.self as Any.Type, to: UnsafeMutablePointer<ClassMetadata>.self)
+//let studentVTableCount = Int(studentPtr.pointee.Description.pointee.getTargetVTableDescriptorHeaderPointer().resultPtr.pointee.VTableSize)
+//let personVTableCount = Int(personPtr.pointee.Description.pointee.getTargetVTableDescriptorHeaderPointer().resultPtr.pointee.VTableSize)
+//
+//var personPrintPointee = personPtr.pointee.Description.pointee.getTargetMethodDescriptorPointer().resultPtr.advanced(by: personVTableCount - 2).pointee
+//var studentPrintPointee = studentPtr.pointee.Description.pointee.getTargetMethodDescriptorPointer().resultPtr.advanced(by: studentVTableCount - 1).pointee
+//
+//personPtr.pointee.Description.pointee.getTargetMethodDescriptorPointer().resultPtr.advanced(by: personVTableCount - 2).pointee = personPrintPointee
+//studentPtr.pointee.Description.pointee.getTargetMethodDescriptorPointer().resultPtr.advanced(by: studentVTableCount - 1).pointee = personPrintPointee
+//
+//let stu = Student.init()
+//stu.studentPrint()
+
+print("end")
+
+
+
 
