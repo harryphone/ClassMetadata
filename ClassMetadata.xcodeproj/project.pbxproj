@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		102620A725CD125F00AF3324 /* TargetSingletonMetadataInitialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102620A625CD125F00AF3324 /* TargetSingletonMetadataInitialization.swift */; };
+		102620AA25CD309F00AF3324 /* TargetVTableDescriptorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102620A925CD309F00AF3324 /* TargetVTableDescriptorHeader.swift */; };
+		102620B725CD389500AF3324 /* SimpleTrailingGenericContextObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102620B625CD389500AF3324 /* SimpleTrailingGenericContextObjects.swift */; };
+		1083E95C25CBC0C300FA4E6D /* TargetTypeGenericContextDescriptorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1083E95B25CBC0C300FA4E6D /* TargetTypeGenericContextDescriptorHeader.swift */; };
+		1083E95F25CBC18500FA4E6D /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1083E95E25CBC18500FA4E6D /* Metadata.swift */; };
+		1083E96525CBC49A00FA4E6D /* TargetClassDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1083E96425CBC49A00FA4E6D /* TargetClassDescriptor.swift */; };
+		1083E96925CBC70100FA4E6D /* FlagSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1083E96825CBC70100FA4E6D /* FlagSet.swift */; };
+		1083E96D25CBC83B00FA4E6D /* TargetGenericRequirementDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1083E96C25CBC83B00FA4E6D /* TargetGenericRequirementDescriptor.swift */; };
+		108B945025CAA3FA004B6B51 /* TargetClassDescriptor_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B944F25CAA3FA004B6B51 /* TargetClassDescriptor_Extension.swift */; };
+		108B945325CAC85A004B6B51 /* ClassMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B945225CAC85A004B6B51 /* ClassMetadata.swift */; };
 		10990FED25B9533F00946219 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10990FEC25B9533F00946219 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +33,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		102620A625CD125F00AF3324 /* TargetSingletonMetadataInitialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSingletonMetadataInitialization.swift; sourceTree = "<group>"; };
+		102620A925CD309F00AF3324 /* TargetVTableDescriptorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetVTableDescriptorHeader.swift; sourceTree = "<group>"; };
+		102620B625CD389500AF3324 /* SimpleTrailingGenericContextObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTrailingGenericContextObjects.swift; sourceTree = "<group>"; };
+		1083E95B25CBC0C300FA4E6D /* TargetTypeGenericContextDescriptorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetTypeGenericContextDescriptorHeader.swift; sourceTree = "<group>"; };
+		1083E95E25CBC18500FA4E6D /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		1083E96425CBC49A00FA4E6D /* TargetClassDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetClassDescriptor.swift; sourceTree = "<group>"; };
+		1083E96825CBC70100FA4E6D /* FlagSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagSet.swift; sourceTree = "<group>"; };
+		1083E96C25CBC83B00FA4E6D /* TargetGenericRequirementDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetGenericRequirementDescriptor.swift; sourceTree = "<group>"; };
+		108B944F25CAA3FA004B6B51 /* TargetClassDescriptor_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetClassDescriptor_Extension.swift; sourceTree = "<group>"; };
+		108B945225CAC85A004B6B51 /* ClassMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassMetadata.swift; sourceTree = "<group>"; };
 		10990FE925B9533F00946219 /* ClassMetadata */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClassMetadata; sourceTree = BUILT_PRODUCTS_DIR; };
 		10990FEC25B9533F00946219 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +78,16 @@
 			isa = PBXGroup;
 			children = (
 				10990FEC25B9533F00946219 /* main.swift */,
+				108B945225CAC85A004B6B51 /* ClassMetadata.swift */,
+				1083E96425CBC49A00FA4E6D /* TargetClassDescriptor.swift */,
+				1083E95E25CBC18500FA4E6D /* Metadata.swift */,
+				1083E96825CBC70100FA4E6D /* FlagSet.swift */,
+				108B944F25CAA3FA004B6B51 /* TargetClassDescriptor_Extension.swift */,
+				1083E95B25CBC0C300FA4E6D /* TargetTypeGenericContextDescriptorHeader.swift */,
+				102620B625CD389500AF3324 /* SimpleTrailingGenericContextObjects.swift */,
+				1083E96C25CBC83B00FA4E6D /* TargetGenericRequirementDescriptor.swift */,
+				102620A625CD125F00AF3324 /* TargetSingletonMetadataInitialization.swift */,
+				102620A925CD309F00AF3324 /* TargetVTableDescriptorHeader.swift */,
 			);
 			path = ClassMetadata;
 			sourceTree = "<group>";
@@ -119,7 +149,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102620B725CD389500AF3324 /* SimpleTrailingGenericContextObjects.swift in Sources */,
+				1083E95C25CBC0C300FA4E6D /* TargetTypeGenericContextDescriptorHeader.swift in Sources */,
+				108B945325CAC85A004B6B51 /* ClassMetadata.swift in Sources */,
+				1083E96525CBC49A00FA4E6D /* TargetClassDescriptor.swift in Sources */,
+				1083E95F25CBC18500FA4E6D /* Metadata.swift in Sources */,
+				1083E96925CBC70100FA4E6D /* FlagSet.swift in Sources */,
+				102620A725CD125F00AF3324 /* TargetSingletonMetadataInitialization.swift in Sources */,
 				10990FED25B9533F00946219 /* main.swift in Sources */,
+				108B945025CAA3FA004B6B51 /* TargetClassDescriptor_Extension.swift in Sources */,
+				102620AA25CD309F00AF3324 /* TargetVTableDescriptorHeader.swift in Sources */,
+				1083E96D25CBC83B00FA4E6D /* TargetGenericRequirementDescriptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
