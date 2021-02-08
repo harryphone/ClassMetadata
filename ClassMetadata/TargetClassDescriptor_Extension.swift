@@ -88,9 +88,15 @@ extension TargetClassDescriptor {
        return getResilientMetadataBounds()
     }
     
-    // 取跟在TargetClassDescriptor后面的数据，不一定有，看count是否为0，如果为0，则为无效的指针，依次取
     
-    mutating func getTargetTypeGenericContextDescriptorHeaderPointer() -> (UnsafeMutablePointer<TargetTypeGenericContextDescriptorHeader>, count: Int) {
+}
+
+//获取 Tailling  Objects
+// 取跟在TargetClassDescriptor后面的数据，不一定有，看count是否为0，如果为0，则为无效的指针，依次取
+// 源码里做了内存对齐处理判断，我这里没有，如果某个奇奇怪怪的类调用这里的方法后，发现数据错误或者崩溃，请不要特别奇怪  = =
+extension TargetClassDescriptor {
+    
+    mutating func getTargetTypeGenericContextDescriptorHeaderPointer() -> (resultPtr: UnsafeMutablePointer<TargetTypeGenericContextDescriptorHeader>, count: Int) {
         let pointer = withUnsafeMutablePointer(to: &self) {
             return UnsafeMutableRawPointer($0.advanced(by: 1)).assumingMemoryBound(to: TargetTypeGenericContextDescriptorHeader.self)
         }
@@ -98,71 +104,71 @@ extension TargetClassDescriptor {
         return (pointer, count)
     }
     
-    mutating func getGenericParamDescriptorPointer() -> (UnsafeMutablePointer<GenericParamDescriptor>, count: Int) {
+    mutating func getGenericParamDescriptorPointer() -> (resultPtr: UnsafeMutablePointer<GenericParamDescriptor>, count: Int) {
         let (lastPointer, lastCount) = getTargetTypeGenericContextDescriptorHeaderPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: GenericParamDescriptor.self)
         let count = Flags.isGeneric() ?  Int(lastPointer.pointee.Base.NumParams) : 0
         return (pointer, count)
     }
     
-    mutating func getTargetGenericRequirementDescriptorPointer() -> (UnsafeMutablePointer<TargetGenericRequirementDescriptor>, count: Int) {
+    mutating func getTargetGenericRequirementDescriptorPointer() -> (resultPtr: UnsafeMutablePointer<TargetGenericRequirementDescriptor>, count: Int) {
         let (lastPointer, lastCount) = getGenericParamDescriptorPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetGenericRequirementDescriptor.self)
-        let (GenericContextDescriptorHeaderPointer, _) = getTargetTypeGenericContextDescriptorHeaderPointer()
+        let GenericContextDescriptorHeaderPointer = getTargetTypeGenericContextDescriptorHeaderPointer().resultPtr
         let count = Flags.isGeneric() ?  Int(GenericContextDescriptorHeaderPointer.pointee.Base.NumRequirements) : 0
         return (pointer, count)
     }
     
-    mutating func getTargetResilientSuperclassPointer() -> (UnsafeMutablePointer<TargetResilientSuperclass>, count: Int) {
+    mutating func getTargetResilientSuperclassPointer() -> (resultPtr: UnsafeMutablePointer<TargetResilientSuperclass>, count: Int) {
         let (lastPointer, lastCount) = getTargetGenericRequirementDescriptorPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetResilientSuperclass.self)
         let count = hasResilientSuperclass() ? 1 : 0
         return (pointer, count)
     }
     
-    mutating func getTargetForeignMetadataInitializationPointer() -> (UnsafeMutablePointer<TargetForeignMetadataInitialization>, count: Int) {
+    mutating func getTargetForeignMetadataInitializationPointer() -> (resultPtr: UnsafeMutablePointer<TargetForeignMetadataInitialization>, count: Int) {
         let (lastPointer, lastCount) = getTargetResilientSuperclassPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetForeignMetadataInitialization.self)
         let count = hasForeignMetadataInitialization() ? 1 : 0
         return (pointer, count)
     }
     
-    mutating func getTargetSingletonMetadataInitializationPointer() -> (UnsafeMutablePointer<TargetSingletonMetadataInitialization>, count: Int) {
+    mutating func getTargetSingletonMetadataInitializationPointer() -> (resultPtr: UnsafeMutablePointer<TargetSingletonMetadataInitialization>, count: Int) {
         let (lastPointer, lastCount) = getTargetForeignMetadataInitializationPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetSingletonMetadataInitialization.self)
         let count = hasSingletonMetadataInitialization() ? 1 : 0
         return (pointer, count)
     }
     
-    mutating func getTargetVTableDescriptorHeaderPointer() -> (UnsafeMutablePointer<TargetVTableDescriptorHeader>, count: Int) {
+    mutating func getTargetVTableDescriptorHeaderPointer() -> (resultPtr: UnsafeMutablePointer<TargetVTableDescriptorHeader>, count: Int) {
         let (lastPointer, lastCount) = getTargetSingletonMetadataInitializationPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetVTableDescriptorHeader.self)
         let count = hasVTable() ? 1 : 0
         return (pointer, count)
     }
     
-    mutating func getTargetMethodDescriptorPointer() -> (UnsafeMutablePointer<TargetMethodDescriptor>, count: Int) {
+    mutating func getTargetMethodDescriptorPointer() -> (resultPtr: UnsafeMutablePointer<TargetMethodDescriptor>, count: Int) {
         let (lastPointer, lastCount) = getTargetVTableDescriptorHeaderPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetMethodDescriptor.self)
         let count = hasVTable() ? Int(lastPointer.pointee.VTableSize) : 0
         return (pointer, count)
     }
     
-    mutating func getTargetOverrideTableHeaderPointer() -> (UnsafeMutablePointer<TargetOverrideTableHeader>, count: Int) {
+    mutating func getTargetOverrideTableHeaderPointer() -> (resultPtr: UnsafeMutablePointer<TargetOverrideTableHeader>, count: Int) {
         let (lastPointer, lastCount) = getTargetMethodDescriptorPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetOverrideTableHeader.self)
         let count = hasOverrideTable() ? 1 : 0
         return (pointer, count)
     }
     
-    mutating func getTargetMethodOverrideDescriptorPointer() -> (UnsafeMutablePointer<TargetMethodOverrideDescriptor>, count: Int) {
+    mutating func getTargetMethodOverrideDescriptorPointer() -> (resultPtr: UnsafeMutablePointer<TargetMethodOverrideDescriptor>, count: Int) {
         let (lastPointer, lastCount) = getTargetOverrideTableHeaderPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetMethodOverrideDescriptor.self)
         let count = hasOverrideTable() ? Int(lastPointer.pointee.NumEntries) : 0
         return (pointer, count)
     }
     
-    mutating func getTargetObjCResilientClassStubInfoPointer() -> (UnsafeMutablePointer<TargetObjCResilientClassStubInfo>, count: Int) {
+    mutating func getTargetObjCResilientClassStubInfoPointer() -> (resultPtr: UnsafeMutablePointer<TargetObjCResilientClassStubInfo>, count: Int) {
         let (lastPointer, lastCount) = getTargetMethodOverrideDescriptorPointer()
         let pointer = UnsafeMutableRawPointer(lastPointer.advanced(by: lastCount)).assumingMemoryBound(to: TargetObjCResilientClassStubInfo.self)
         let count = hasObjCResilientClassStub() ? 1 : 0

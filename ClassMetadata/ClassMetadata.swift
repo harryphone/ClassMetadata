@@ -72,6 +72,24 @@ struct ClassMetadata {
     // 销毁实例变量的函数，用于在构造函数早期返回后进行清理。如果为null，则不会执行清理操作，并且所有的ivars都必须是简单的。
     var IVarDestroyer: UnsafeMutablePointer<ClassIVarDestroyer>
     
+    
+    //获得每个属性的在结构体中内存的起始位置
+    mutating func getFieldOffset(index: Int) -> Int {
+        if Description.pointee.NumFields == 0 || Description.pointee.FieldOffsetVectorOffset == 0 {
+            print("没有属性")
+            return 0
+        }
+        let fieldOffsetVectorOffset = self.Description.pointee.FieldOffsetVectorOffset
+        return withUnsafeMutablePointer(to: &self) {
+            //获得自己本身的起始位置
+            let selfPtr = UnsafeMutableRawPointer($0).assumingMemoryBound(to: InProcess.self)
+            //以指针的步长偏移FieldOffsetVectorOffset
+            let fieldOffsetVectorOffsetPtr = selfPtr.advanced(by: numericCast(fieldOffsetVectorOffset))
+            //属性的起始偏移量已32位整形存储的，转一下指针
+            let tramsformPtr = UnsafeMutableRawPointer(fieldOffsetVectorOffsetPtr).assumingMemoryBound(to: InProcess.self)
+            return numericCast(tramsformPtr.advanced(by: index).pointee)
+        }
+    }
 }
 
 
