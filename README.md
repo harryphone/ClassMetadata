@@ -1,13 +1,6 @@
 # Swift原生类底层ClassMetadata
 
 
----
-# 主题列表：juejin, github, smartblue, cyanosis, channing-cyan, fancy, hydrogen, condensed-night-purple, greenwillow, v-green, vue-pro, healer-readable, mk-cute
-# 贡献主题：https://github.com/xitu/juejin-markdown-themes
-theme: juejin
-highlight:
----
-
 # 前言
 `ClassMetadata`在底层源码代码有点多，所以会挑一些注意点，或者理解起来难度的地方写。一些比较基础的就跳过了，因为全写有点多。我前面写过一篇[StructMetadata](https://juejin.cn/post/6919717099619221517)，会简单点，还有些相同的内容。
 
